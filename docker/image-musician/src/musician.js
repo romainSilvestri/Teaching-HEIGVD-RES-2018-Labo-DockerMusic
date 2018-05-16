@@ -1,39 +1,43 @@
 var dgram = require('dgram');
 var uuid = require('uuid'); // https://www.npmjs.com/package/uuid
-var moment = require('moment');
-
 var s = dgram.createSocket('udp4');
 
+const PORT = 2205
+const ADDRESS = "239.255.22.5"
+const INTERVAL = 1000
+
+// Creating a musician from the arguments
 var musician  = new Object();
 musician.uuid = uuid();
 musician.instrument = process.argv[2];
-var sound;
+// Give the musician his sound by checking his instrument.
 switch(musician.instrument){
     case "piano":
-        sound = "ti-ta-ti";
+        musician.sound = "ti-ta-ti";
         break;
     case "trumpet":
-        sound = "pouet";
+        musician.sound = "pouet";
         break;
     case "flute":
-        sound = "trulu";
+        musician.sound = "trulu";
         break;
     case "violin":
-        sound = "gzi-gzi";
+        musician.sound = "gzi-gzi";
         break;
     case "drum":
-        sound = "boum-boum";
+        musician.sound = "boum-boum";
         break;
     default:
-        sound = "undefined";
+        musician.sound = "undefined";
         break;
 }
-musician.sound = sound;
+
 
 var payload = JSON.stringify(musician);
 
+// Call the fonction every INTERVAL ms
 setInterval(function(){
     message = new Buffer(payload);
-    s.send(message, 0, message.length, 2205, "239.255.22.5", function(err, bytes){}); // We send to the multicast adress.
-}, 1000);
+    s.send(message, 0, message.length, PORT, ADDRESS, function(err, bytes){}); // We send to the multicast adress.
+}, INTERVAL);
 
