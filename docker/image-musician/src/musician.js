@@ -10,6 +10,7 @@ const INTERVAL = 1000
 var musician  = new Object();
 musician.uuid = uuid();
 musician.instrument = process.argv[2];
+
 // Give the musician his sound by checking his instrument.
 switch(musician.instrument){
     case "piano":

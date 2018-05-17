@@ -4,7 +4,6 @@ var moment = require('moment');
 
 const PORT = 2205;
 const ADDRESS = "239.255.22.5";
-const ADDRESS = "239.255.22.5";
 const TIME_OUT = 5000;
 
 var s = dgram.createSocket('udp4');
